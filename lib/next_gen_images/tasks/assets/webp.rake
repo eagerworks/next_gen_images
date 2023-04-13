@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'webp-ffi'
 
 namespace :assets do
@@ -22,9 +24,9 @@ namespace :assets do
         # encode with lossy encoding and slowest method (best quality)
         WebP.encode(filename, webp_file, lossless: 0, quality: 80, method: 6)
         File.utime(mtime, mtime, webp_file)
-        STDOUT.puts "Converted image to Webp: #{webp_file}"
+        $stdout.puts "Converted image to Webp: #{webp_file}"
       rescue StandardError => e
-        warn "Webp conversion error on image #{webp_file}. Error info: #{e.message}"
+        $stdout.puts "Webp conversion error on image #{webp_file}. Error info: #{e.message}"
       end
     end
   end

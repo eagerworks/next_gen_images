@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'action_view'
 
 module NextGenImages
@@ -27,7 +29,7 @@ module NextGenImages
       image_options[:src] = build_img_src(source)
       add_webp = options.fetch(:add_webp, false)
 
-      content = "<!--[if IE 9]><video style='display: none;'><![endif]-->".html_safe
+      content = ''.html_safe
       if block.present?
         content += capture(&block).html_safe
       else
@@ -35,28 +37,28 @@ module NextGenImages
           content += build_source_from_img(image_path(img_src), add_webp)
         end
       end
-      content += '<!--[if IE 9]></video><![endif]-->'.html_safe
       content += tag('img', image_options)
     end
 
     def build_img_src(source)
-      if source.is_a?(String)
-        return image_path(source)
-      elsif source.is_a?(Array)
-        return image_path(source.last)
+      case source
+      when String
+        image_path(source)
+      when Array
+        image_path(source.last)
       else
-        return ''
+        ''
       end
     end
 
     def build_source_from_img(img_path, add_webp)
       source_tags = ''.html_safe
-      webp_path = img_path + '.webp'
+      webp_path = "#{img_path}.webp"
       # order of source tags matters
       if add_webp && file_exist_in_public_path?(webp_path)
         source_tags += source_tag(srcset: webp_path, type: 'image/webp')
       end
-      source_tags += source_tag(
+      source_tags + source_tag(
         srcset: img_path,
         type: image_type(img_path)
       )
@@ -65,8 +67,8 @@ module NextGenImages
     def image_type(image_path)
       extension = File.extname(image_path)
       Rack::Mime::MIME_TYPES.merge!({
-        '.webp' => 'image/webp'
-      })
+                                      '.webp' => 'image/webp'
+                                    })
       Rack::Mime.mime_type(extension).to_s
     end
 
@@ -77,7 +79,8 @@ module NextGenImages
       public_path = File.join(
         Rails.root,
         'public',
-        path)
+        path
+      )
       File.exist?(public_path)
     end
   end

@@ -1,5 +1,11 @@
+require:
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.6
+  NewCops: 'enable'
+  Exclude:
+    - 'bin/*'
 
 Style/StringLiterals:
   Enabled: true
@@ -9,5 +15,28 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
 
+Style/Documentation:
+  Enabled: false
+
 Layout/LineLength:
   Max: 120
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+
+Metrics/BlockLength:
+  CountComments: false
+  Max: 25
+
+Metrics/AbcSize:
+  # The ABC size is a calculated magnitude, so this number can be an Integer or
+  # a Float.
+  Max: 18
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 24
+
+RSpec/MultipleExpectations:
+  Max: 2

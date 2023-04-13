@@ -2,7 +2,8 @@ PATH
   remote: .
   specs:
     next_gen_images (0.1.0)
-      rails (>= 3.0)
+      rails (>= 3.1)
+      webp-ffi (~> 0.3.1)
 
 GEM
   remote: https://rubygems.org/
@@ -78,6 +79,10 @@ GEM
     crass (1.0.6)
     diff-lcs (1.5.0)
     erubi (1.11.0)
+    ffi (1.15.5)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -102,6 +107,8 @@ GEM
       net-protocol
     nio4r (2.5.8)
     nokogiri (1.13.8-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     parallel (1.22.1)
     parser (3.1.2.1)
@@ -165,12 +172,17 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.23.0)
       parser (>= 3.1.1.0)
+    rubocop-rspec (2.17.1)
+      rubocop (~> 1.33)
     ruby-progressbar (1.11.0)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
+    webp-ffi (0.3.1)
+      ffi (>= 1.9.0)
+      ffi-compiler (>= 0.1.2)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -178,14 +190,15 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
-  ruby
   x86_64-linux
 
 DEPENDENCIES
+  bundler
   next_gen_images!
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop (~> 1.21)
+  rubocop-rspec (~> 2.17.1)
 
 BUNDLED WITH
    2.3.25

@@ -7,12 +7,12 @@ module NextGenImages
   RSpec.describe ViewHelpers, type: :helper do
     # For Rack::Mime usage
     include ::Rack
-    include ViewHelpers
+    include described_class
     include ActionView::Helpers
     include ActionView::Helpers::TagHelper
 
     it 'has a version number' do
-      expect(VERSION).not_to be nil
+      expect(VERSION).not_to be_nil
     end
 
     describe '#picture_tag' do
@@ -42,7 +42,7 @@ module NextGenImages
         let(:options) { { add_webp: true } }
 
         before do
-          allow(self).to receive(:file_exist_in_public_path?) { true }
+          allow(self).to receive(:file_exist_in_public_path?).and_return(true)
         end
 
         it 'returns a picture tag with an source tag' do
@@ -55,7 +55,7 @@ module NextGenImages
 
         it 'adds a webp image if add_webp is present' do
           expect(result).to include("<source srcset=\"#{image_path(source)}\"")
-          expect(result).to include("<source srcset=\"#{image_path(source) + ".webp"}\"")
+          expect(result).to include("<source srcset=\"#{image_path(source)}.webp\"")
         end
       end
 
