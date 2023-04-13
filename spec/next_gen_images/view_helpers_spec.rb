@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'rack'
 
@@ -54,7 +55,7 @@ module NextGenImages
 
         it 'adds a webp image if add_webp is present' do
           expect(result).to include("<source srcset=\"#{image_path(source)}\"")
-          expect(result).to include("<source srcset=\"#{image_path(source) + '.webp' }\"")          
+          expect(result).to include("<source srcset=\"#{image_path(source) + ".webp"}\"")
         end
       end
 
@@ -76,13 +77,13 @@ module NextGenImages
         let(:result) do
           picture_tag(source, options) do
             source_tag(srcset: 'example.webp', type: 'image/webp') +
-            source_tag(srcset: 'example.png', type: 'image/png')
+              source_tag(srcset: 'example.png', type: 'image/png')
           end
         end
 
         it 'returns a picture tag with the block content and an img tag' do
-          expect(result).to include("<source srcset=\"example.webp\" type=\"image/webp\"")
-          expect(result).to include("<source srcset=\"example.png\" type=\"image/png\"")
+          expect(result).to include('<source srcset="example.webp" type="image/webp"')
+          expect(result).to include('<source srcset="example.png" type="image/png"')
         end
 
         it 'correctly adds the img tag' do
@@ -96,7 +97,7 @@ module NextGenImages
       let(:result) { source_tag(options) }
 
       it 'returns a source tag with the specified options' do
-        expect(result).to eq("<source srcset=\"example.png\" type=\"image/png\" />")
+        expect(result).to eq('<source srcset="example.png" type="image/png" />')
       end
     end
   end

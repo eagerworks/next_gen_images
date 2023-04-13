@@ -1,5 +1,22 @@
 # NextGenImages
 
+Rake tasks are loaded automatically because
+`next_gen_images.rb` is loaded
+it loads `next_gen_images/railtie`
+which executes the `rake_tasks` block and loads all `.rake` files from `/tasks`
+
+Put instructions to webp-ffi installation (refer to doc)
+
+
+
+
+
+
+//////////////////////////
+
+
+
+
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/next_gen_images`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem
