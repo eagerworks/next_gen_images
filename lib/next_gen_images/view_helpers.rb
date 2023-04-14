@@ -74,10 +74,10 @@ module NextGenImages
 
     def file_exist_in_public_path?(path)
       # for performance reasons, we assume production contains the asset
-      return true if Rails.env.production?
+      return true if ::Rails.env.production?
 
       public_path = File.join(
-        Rails.root,
+        ::Rails.root,
         'public',
         path
       )
