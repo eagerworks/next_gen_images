@@ -11,7 +11,7 @@ This gem brings next gen image formats to Ruby on Rails. A `picture_tag` view he
 ## Installation
 
 IMPORTANT:
-Since this gem adds the ability to convert all your project images to WebP and depends on `webp-ffi`, you will need to install the WebP converter before. You can check specific instructions for your operating system on `webp-ffi`'s page [TODO: ADD PAGE HERE]
+Since this gem adds the ability to convert all your project images to WebP and depends on `webp-ffi`, you will need to install the WebP converter before. You can check specific instructions for your operating system [here](https://github.com/le0pard/webp-ffi#installation)
 
 Once you are ready with, install the gem and add to the application's Gemfile by executing:
 
