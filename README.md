@@ -2,10 +2,10 @@
 
 ## Motivation
 
-Currently Rails does not provide a `picture` HTML tag helper. An HTML `picture` tag provides [several advantages](TODO:LINK) over an image tag, like fallback image support, resolution switching and art direction.
+Currently Rails does not provide a `picture` HTML tag helper. An HTML `picture` tag provides [several advantages](https://blog.bitsrc.io/why-you-should-use-picture-tag-instead-of-img-tag-b9841e86bf8b) over an image tag, like fallback image support, resolution switching and art direction.
 Also, most of a website assets are still JPEG or PNG images, and we don't want to convert our assets manually to WebP, we want this to happen automatically if it's needed.
 
-This gem brings next gen image formats to Ruby on Rails. A `picture_tag` view helper is provided along several utilities to automatically convert them. Currently, it supports `WebP` images.
+This gem brings next gen image formats to Ruby on Rails. A `picture_tag` view helper is provided along several utilities to automatically convert them. Currently, it supports `WebP` images. A Carrierwave module with some utility methods is provided.
 
 
 ## Installation
@@ -104,6 +104,30 @@ rake assets:webp
 ```
 Assets will be compiled to `public/assets/` or the path that you specifed in `Rails.application.config.assets.prefix`.
 The file names of the generated image assets will be in the format:`OLD_IMAGE.OLD_EXTENSION.webp`
+
+### Carrierwave integration
+
+A `convert_to_webp` method that converts images to WebP is provided. You can send any encoding option available to [webp-ffi](https://github.com/le0pard/webp-ffi#encode-webp-image).
+We also provide a helper method called `build_webp_full_filename` that allows you to generate the WebP filename from the original filename and version.
+
+Example Uploader class:
+```ruby
+class ImageUploader < CarrierWave::Uploader::Base
+  include NextGenImages::CarrierwaveHelpers
+
+  version :small, from_version: :medium do
+    process resize_to_fit: [400, 400]
+  end
+
+  version :webp do
+    process convert_to_webp: [{ quality: 80, method: 5 }]
+
+    def full_filename(file)
+      build_webp_full_filename(file, version_name)
+    end
+  end
+end
+```
 
 ## Development
 
