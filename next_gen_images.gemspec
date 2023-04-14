@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails', '>= 3.1'
   spec.add_dependency 'webp-ffi', '~> 0.3.1'
   spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'carrierwave', '>= 2.0'
   spec.add_development_dependency 'rspec', '~> 3.12.0'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.17.1'
 end
