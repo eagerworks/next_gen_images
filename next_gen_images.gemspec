@@ -8,13 +8,13 @@ Gem::Specification.new do |spec|
   spec.authors = ['JP Balarini']
   spec.email = ['jp@eagerworks.com']
 
-  spec.summary = 'Handle next-gen image formats in your Ruby on Rails project'
-  # spec.description = "TODO: Write a longer description or delete this line."
+  spec.summary = 'Handle next-gen image formats in your Ruby on Rails project. WebP is currently supported'
+  spec.description = 'Adds support for a picture_tag and several utilities to automatically convert images to WebP'
   spec.homepage = 'https://eagerworks.com'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 2.6.0'
 
-  spec.metadata['allowed_push_host'] = "TODO: Set to your gem server 'https://example.com'"
+  spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/eagerworks/next_gen_images'
