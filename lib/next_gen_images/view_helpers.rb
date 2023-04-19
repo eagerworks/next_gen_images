@@ -14,7 +14,7 @@ module NextGenImages
       picture_options = options.except(:image)
 
       content_tag :picture, picture_options do
-        build_picture_content(source, block, options)
+        build_picture_content(source, options, block)
       end
     end
 
@@ -24,7 +24,7 @@ module NextGenImages
 
     private
 
-    def build_picture_content(source, block, options)
+    def build_picture_content(source, options, block)
       image_options = options.fetch(:image, {})
       image_options[:src] = build_img_src(source)
       add_webp = options.fetch(:add_webp, false)
