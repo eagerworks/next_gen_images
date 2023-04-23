@@ -105,6 +105,43 @@ rake assets:webp
 Assets will be compiled to `public/assets/` or the path that you specifed in `Rails.application.config.assets.prefix`.
 The file names of the generated image assets will be in the format:`OLD_IMAGE.OLD_EXTENSION.webp`
 
+### ActiveStorage integration
+
+If you are using ActiveStorage you will need to first enable the `image_processing` gem. Usually, uncommenting this from your Gemfile:
+```
+gem "image_processing", "~> 1.2"
+```
+
+Then, you will need to install the VIPS image processing library binaries. Check the [VIPS Ruby wrapper gem](https://github.com/libvips/ruby-vips) for installation instructions for your OS.
+
+Finally, in `application.rb` configure ActiveStorage to use VIPS:
+
+```ruby
+config.active_storage.variant_processor = :vips
+```
+
+You are ready to start using WebP variants in your models like this:
+
+```ruby
+class User < ApplicationRecord
+  has_one_attached :avatar do |attachable|
+    attachable.variant :small, resize_to_limit: [400, 400]
+    attachable.variant :webp, {
+      convert: :webp,
+      format: :webp,
+      saver: { quality: 80 }
+    }
+    attachable.variant :webp_small, {
+      resize_to_limit: [400, 400],
+      convert: :webp,
+      format: :webp,
+      saver: { quality: 80 }
+    }
+  end
+end
+```
+
+
 ### Carrierwave integration
 
 A `convert_to_webp` method that converts images to WebP is provided. You can send any encoding option available to [webp-ffi](https://github.com/le0pard/webp-ffi#encode-webp-image).
