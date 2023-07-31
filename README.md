@@ -152,7 +152,7 @@ Example Uploader class:
 class ImageUploader < CarrierWave::Uploader::Base
   include NextGenImages::CarrierwaveHelpers
 
-  version :small, from_version: :medium do
+  version :small do
     process resize_to_fit: [400, 400]
   end
 

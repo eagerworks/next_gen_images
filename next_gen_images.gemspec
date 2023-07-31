@@ -31,8 +31,8 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'rails', '>= 3.1'
-  spec.add_dependency 'webp-ffi', '~> 0.3.1'
+  spec.add_runtime_dependency 'rails', '>= 3.1'
+  spec.add_runtime_dependency 'webp-ffi', '~> 0.3.1'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'carrierwave', '>= 2.0'
   spec.add_development_dependency 'rspec', '~> 3.12.0'
