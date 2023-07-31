@@ -31,13 +31,13 @@ module NextGenImages
 
       content = ''.html_safe
       if block.present?
-        content += capture(&block).html_safe
+        content << capture(&block).html_safe
       else
         [source].flatten.each do |img_src|
-          content += build_source_from_img(image_path(img_src), add_webp)
+          content << build_source_from_img(image_path(img_src), add_webp)
         end
       end
-      content += tag('img', image_options)
+      content << tag('img', image_options)
     end
 
     def build_img_src(source)
@@ -56,7 +56,7 @@ module NextGenImages
       webp_path = "#{img_path}.webp"
       # order of source tags matters
       if add_webp && file_exist_in_public_path?(webp_path)
-        source_tags += source_tag(srcset: webp_path, type: 'image/webp')
+        source_tags << source_tag(srcset: webp_path, type: 'image/webp')
       end
       source_tags + source_tag(
         srcset: img_path,
