@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+require 'active_support'
 require 'next_gen_images'
-require 'rails'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
