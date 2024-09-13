@@ -2,9 +2,9 @@
 
 require 'webp-ffi'
 
-namespace :assets do
+namespace :next_gen_images do # rubocop:disable Metrics/BlockLength
   desc 'Create .webp versions of assets'
-  task webp: :environment do
+  task precompile: :environment do
     image_types = /\.(?:png|jpe?g)$/
 
     public_assets = File.join(
@@ -31,9 +31,26 @@ namespace :assets do
     end
   end
 
-  # Hook into existing assets:precompile task
-  Rake::Task['assets:precompile'].enhance do
-    # TODO: if defined?(NextGenImages) && NextGenImages.config.run_on_precompile
-    Rake::Task['assets:webp'].invoke
+  desc 'Convert JPEG/PNG images in app/assets/images to WebP'
+  task convert_app_images: :environment do
+    source_dir = Rails.root.join('app', 'assets', 'images')
+
+    Dir.glob(File.join(source_dir, '**', '*.{jpg,jpeg,png}')).each do |image_path|
+      webp_path = image_path.sub(/\.(jpg|jpeg|png)$/i, '.webp')
+
+      begin
+        WebP.encode(image_path, webp_path, lossless: 0, quality: 80, method: 6)
+        puts "Converted: #{image_path} -> #{webp_path}"
+      rescue StandardError => e
+        puts "Error converting #{image_path}: #{e.message}"
+      end
+    end
+
+    puts 'Conversion complete. WebP images are in the same directories as the original images.'
   end
+end
+
+# Hook into existing assets:precompile task
+Rake::Task['assets:precompile'].enhance do
+  Rake::Task['next_gen_images:precompile'].invoke if defined?(NextGenImages) && NextGenImages.config.run_on_precompile
 end
